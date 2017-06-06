@@ -12,6 +12,11 @@
   <% if current_user?(micropost.user) %>
   <%= link_to "delete", micropost, method: :delete,
                                    data: { confirm: "You sure?" } %>
+  <% else %>
+    <% if current_user && current_user.admin? %>
+    <%= link_to "delete", micropost, method: :delete,
+                                     data: { confirm: "You sure? You are using Admin priveleges to execute this action." } %>
+        <% end %>
     <% end %>
   </span>
 </li>

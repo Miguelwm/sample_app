@@ -1,5 +1,5 @@
 <%= link_to gravatar_for(current_user, size: 50), current_user %>
-<h1> <% if current_user.admin? %>
+<h1> <% if current_user && current_user.admin? %>
       <b><%= "Admin | " + current_user.name%></b>
      <% else %>
 <%= current_user.name %></h1>

@@ -5,6 +5,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
+    @user.update_attribute(:admin, true)
     @nonadmin = users(:archer)
   end
 
@@ -13,9 +14,9 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)
     if @user.admin?
-    assert_select 'h1', text: ("Admin | " + @user.name)
+      assert_select 'h1', text: ("Admin | " + @user.name)
     else
-    assert_select 'h1', text: @user.name
+      assert_select 'h1', text: @user.name
     end
     assert_select 'h1>img.gravatar'
     assert_match @user.microposts.count.to_s, response.body
